@@ -215,17 +215,12 @@ def save_checkpoint(
     str
         Checkpoint path
     """
-    checkpoint_name = "checkpoint_{}".format(iteration)
+
+    checkpoint_name = "model.pt"
+    #checkpoint_name = "checkpoint_{}".format(iteration)
     output_path = os.path.join(output_directory, checkpoint_name)
     torch.save(
-        {
-            "iteration": iteration,
-            "state_dict": get_state_dict(model),
-            "optimizer": optimizer.state_dict(),
-            "learning_rate": learning_rate,
-            "epoch": epoch,
-            "symbols": symbols,
-        },
+        model.state_dict(),
         output_path,
     )
     checkpoint_cleanup(output_directory, iteration, checkpoint_frequency, checkpoint_backup_frequency)
